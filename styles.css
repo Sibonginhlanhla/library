@@ -21,3 +21,15 @@ td {
 caption {
     padding: 10px;
 }
+
+::backdrop {
+    background-image: linear-gradient(
+      45deg,
+      magenta,
+      rebeccapurple,
+      dodgerblue,
+      green
+    );
+    opacity: 0.75;
+}
+  

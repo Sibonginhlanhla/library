@@ -10,11 +10,11 @@
 <body>
     <table id="table">
         <caption>
-            <button>add book</button>
+            <button id="add">add book</button>
         </caption>
         <tr>
             <th>id</th>
-            <th rowspan="3">book title</th>
+            <th>book title</th>
             <th>author</th>
             <th>pages</th>
             <th>read</th>
@@ -23,7 +23,7 @@
     </table>
     <!-- A modal dialog containing a form -->
 <dialog id="favDialog">
-    <form>
+    <form method="dialog">
         <label for="book_title">Book Title:</label>
         <input type="text" id="title" name="book_title">
         <label for="author">Author:</label>
@@ -36,6 +36,10 @@
             <option value="read">yes</option>
         </select>
         <!--input type="read" id="read" name="dob"-->
+        <div>
+            <button value="cancel" id="cancelBtn">Cancel</button>
+            <button value="default" id="confirmBtn">Confirm</button>
+        </div>
     </form>
   </dialog>  
 </body>
