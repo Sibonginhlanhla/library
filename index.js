@@ -32,13 +32,22 @@ function Book(title, author, pages, read) {
 
 function renderBook(i) {
     const book = document.createElement("tr");
+    book.dataset.rowId = i.id;
     for (let property in i){
         let data = document.createElement("td");
         data.textContent = i[property];
         book.appendChild(data);
     }
+    const cell = document.createElement("td");
+    const button = document.createElement("button");
+    button.textContent = "delete";
+    cell.appendChild(button);
+    book.appendChild(cell);
     table.appendChild(book);
-    //console.log(book);
+    button.addEventListener("click", () => {
+        const row = document.querySelector(`[data-row-id="${i.id}"]`);
+        table.removeChild(row);
+    });
 }
 /*
 function addBookToLibrary(arr) {
