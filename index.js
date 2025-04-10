@@ -9,6 +9,7 @@ const pages = document.querySelector("#pages");
 const selectEl = document.querySelector("#read");
 const newBook = [];
 
+/*
 const myLibrary = [
     new Book("The Hobbit", "J.R.R Tolkien", "295", "not read"),
     new Book("1984", "George Orwell", "328", "read"),
@@ -20,6 +21,33 @@ const myLibrary = [
 for (let i of myLibrary){
     renderBook(i);
 }
+*/
+
+function updateLocalStorage() {
+    localStorage.setItem("myLibrary", JSON.stringify(myLibrary));
+}
+
+let myLibrary = [];
+
+const storedLibrary = localStorage.getItem("myLibrary");
+if (storedLibrary) {
+    const parsed = JSON.parse(storedLibrary);
+    myLibrary = parsed.map(book => new Book(book.title, book.author, book.pages, book.read));
+} else {
+    myLibrary = [
+        new Book("The Hobbit", "J.R.R Tolkien", "295", "not read"),
+        new Book("1984", "George Orwell", "328", "read"),
+        new Book("To Kill a Mockingbird", "Harper Lee", "281", "not read"),
+        new Book("The Great Gatsby", "F. Scott Fitzgerald", "180", "read"),
+        new Book("Moby Dick", "Herman Melville", "635", "not read")
+    ];
+    updateLocalStorage(); // Save initial books if nothing exists yet
+}
+
+for (let i of myLibrary){
+    renderBook(i);
+}
+
 
 function Book(title, author, pages, read) {
     if (!new.target)throw Error("add new keyword to create");
@@ -63,26 +91,13 @@ function renderBook(i) {
         for (let j = 0; j < myLibrary.length; ++j){
             if (i.id === myLibrary[j].id){
                 myLibrary.splice(j, 1);
+                updateLocalStorage();
                 //console.log(myLibrary);
                 break;
             }
         }
-        //myLibrary.splice()
     });
 }
-/*
-function addBookToLibrary(arr) {
-    if (arr.length === 0)return;
-    myLibrary.push(newBook);
-    const book = document.createElement("tr");
-    for (let property of arr){
-        let data = document.createElement("td");
-        data.textContent = property;
-        book.appendChild(data);
-    }
-    //console.log(book);
-    table.appendChild(book);
-}*/
 
 add.addEventListener("click", () => {
     dialogue.showModal();
@@ -100,7 +115,7 @@ confirmBtn.addEventListener("click", (event) => {
         selectEl.value
     );
     myLibrary.push(newBook);
-    //console.log(newBook);
+    updateLocalStorage();
     renderBook(newBook);
     favDialog.close();
 
