@@ -58,6 +58,14 @@ function Book(title, author, pages, read) {
     this.read = read;
 }
 
+Book.prototype.toggleStatus = function() {
+    if (this.read === "read") {
+        this.read = "not read";
+    } else {
+        this.read = "read";
+    }
+}
+
 function renderBook(i) {
     const book = document.createElement("tr");
     book.dataset.rowId = i.id;
@@ -74,9 +82,11 @@ function renderBook(i) {
     readButton.addEventListener("click", () => {
         const status = book.querySelectorAll("td")[4];
         if (status.textContent === "read"){
-            status.textContent = "unread";
+            status.textContent = "not read";
         }
         else status.textContent = "read";
+        i.toggleStatus();
+        updateLocalStorage();
     });
 
     const cell = document.createElement("td");
