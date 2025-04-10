@@ -60,7 +60,14 @@ function renderBook(i) {
     button.addEventListener("click", () => {
         const row = document.querySelector(`[data-row-id="${i.id}"]`);
         table.removeChild(row);
-        //also remove from the array
+        for (let j = 0; j < myLibrary.length; ++j){
+            if (i.id === myLibrary[j].id){
+                myLibrary.splice(j, 1);
+                //console.log(myLibrary);
+                break;
+            }
+        }
+        //myLibrary.splice()
     });
 }
 /*
@@ -92,6 +99,8 @@ confirmBtn.addEventListener("click", (event) => {
         pages.value,
         selectEl.value
     );
+    myLibrary.push(newBook);
+    //console.log(newBook);
     renderBook(newBook);
     favDialog.close();
 
