@@ -51,3 +51,14 @@ caption {
     );
     opacity: 0.75;
 }
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 17px;
+}
+
+.form-element {
+    display: flex;
+    flex-direction: column;
+}

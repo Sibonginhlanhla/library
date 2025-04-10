@@ -26,18 +26,25 @@
     <!-- A modal dialog containing a form -->
 <dialog id="favDialog">
     <form method="dialog">
-        <label for="book_title">Book Title:</label>
-        <input type="text" id="title" name="book_title">
-        <label for="author">Author:</label>
-        <input type="text" id="author" name="author">
-        <label for="pages">Pages:</label>
-        <input type="number" id="pages" name="pages">
-        <label for="read">Red</label>
-        <select name="read" id="read">
-            <option value="not read">no</option>
-            <option value="read">yes</option>
-        </select>
-        <!--input type="read" id="read" name="dob"-->
+        <div class="form-element">
+            <label for="book_title">Book Title:</label>
+            <input type="text" id="title" name="book_title">
+        </div>
+        <div class="form-element">
+            <label for="author">Author:</label>
+            <input type="text" id="author" name="author">
+        </div>
+        <div class="form-element">
+            <label for="pages">Pages:</label>
+            <input type="number" id="pages" name="pages">
+        </div>
+        <div class="form-element">
+            <label for="read">Red</label>
+            <select name="read" id="read">
+                <option value="not read">no</option>
+                <option value="read">yes</option>
+            </select>
+        </div>
         <div>
             <button value="cancel" id="cancelBtn">Cancel</button>
             <button value="default" id="confirmBtn">Confirm</button>
