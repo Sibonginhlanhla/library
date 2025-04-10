@@ -38,6 +38,19 @@ function renderBook(i) {
         data.textContent = i[property];
         book.appendChild(data);
     }
+    const readCell = document.createElement("td");
+    const readButton = document.createElement("button");
+    readButton.textContent = "(un)read"
+    readCell.appendChild(readButton);
+    book.appendChild(readCell);
+    readButton.addEventListener("click", () => {
+        const status = book.querySelectorAll("td")[4];
+        if (status.textContent === "read"){
+            status.textContent = "unread";
+        }
+        else status.textContent = "read";
+    });
+
     const cell = document.createElement("td");
     const button = document.createElement("button");
     button.textContent = "delete";
@@ -47,6 +60,7 @@ function renderBook(i) {
     button.addEventListener("click", () => {
         const row = document.querySelector(`[data-row-id="${i.id}"]`);
         table.removeChild(row);
+        //also remove from the array
     });
 }
 /*
