@@ -9,25 +9,26 @@ const pages = document.querySelector("#pages");
 const selectEl = document.querySelector("#read");
 const newBook = [];
 
-/*
-const myLibrary = [
-    new Book("The Hobbit", "J.R.R Tolkien", "295", "not read"),
-    new Book("1984", "George Orwell", "328", "read"),
-    new Book("To Kill a Mockingbird", "Harper Lee", "281", "not read"),
-    new Book("The Great Gatsby", "F. Scott Fitzgerald", "180", "read"),
-    new Book("Moby Dick", "Herman Melville", "635", "not read")
-];
+// Book class definition
+class Book {
+    constructor(title, author, pages, read) {
+        this.id = crypto.randomUUID();
+        this.title = title;
+        this.author = author;
+        this.pages = pages;
+        this.read = read;
+    }
 
-for (let i of myLibrary){
-    renderBook(i);
+    toggleStatus() {
+        this.read = this.read === "read" ? "not read" : "read";
+    }
 }
-*/
+
+let myLibrary = [];
 
 function updateLocalStorage() {
     localStorage.setItem("myLibrary", JSON.stringify(myLibrary));
 }
-
-let myLibrary = [];
 
 const storedLibrary = localStorage.getItem("myLibrary");
 if (storedLibrary) {
@@ -48,24 +49,6 @@ for (let i of myLibrary){
     renderBook(i);
 }
 
-
-function Book(title, author, pages, read) {
-    if (!new.target)throw Error("add new keyword to create");
-    this.id = crypto.randomUUID();
-    this.title = title;
-    this.author = author;
-    this.pages = pages;
-    this.read = read;
-}
-
-Book.prototype.toggleStatus = function() {
-    if (this.read === "read") {
-        this.read = "not read";
-    } else {
-        this.read = "read";
-    }
-}
-
 function renderBook(i) {
     const book = document.createElement("tr");
     book.dataset.rowId = i.id;
@@ -76,7 +59,7 @@ function renderBook(i) {
     }
     const readCell = document.createElement("td");
     const readButton = document.createElement("button");
-    readButton.textContent = "(un)read"
+    readButton.textContent = "(un)read";
     readCell.appendChild(readButton);
     book.appendChild(readCell);
     readButton.addEventListener("click", () => {
