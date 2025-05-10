@@ -3,7 +3,7 @@ const add = document.querySelector("#add");
 const dialogue = document.querySelector("#favDialog");
 const confirmBtn = document.querySelector("#confirmBtn");
 const closeButton = document.querySelector("#cancelBtn");
-const title = document.querySelector("#title");
+const title = document.querySelector("#book_title");
 const author = document.querySelector("#author");
 const pages = document.querySelector("#pages");
 const selectEl = document.querySelector("#read");
@@ -70,13 +70,15 @@ function renderBook(i) {
     const book = document.createElement("tr");
     book.dataset.rowId = i.id;
     for (let property in i){
+        if (typeof i[property] === "function") continue;
         let data = document.createElement("td");
         data.textContent = i[property];
         book.appendChild(data);
     }
+
     const readCell = document.createElement("td");
     const readButton = document.createElement("button");
-    readButton.textContent = "(un)read"
+    readButton.textContent = "(un)read";
     readCell.appendChild(readButton);
     book.appendChild(readCell);
     readButton.addEventListener("click", () => {
@@ -116,7 +118,21 @@ add.addEventListener("click", () => {
 // Prevent the "confirm" button from the default behavior of submitting the form, 
 // and close the dialog with the `close()` method, which triggers the "close" event.
 confirmBtn.addEventListener("click", (event) => {
-    event.preventDefault(); //don't want to submit this fake form
+    event.preventDefault(); 
+    
+    const inputs = [title, author, pages];
+
+    let formIsValid = true;
+
+    for (let input of inputs) {
+        if (!input.checkValidity()) {
+            input.reportValidity(); 
+            formIsValid = false;
+            break; 
+        }
+    }
+
+    if (!formIsValid) return;
     
     const newBook = new Book(
         title.value,
